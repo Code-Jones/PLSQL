@@ -1,0 +1,90 @@
+SQL> 
+SQL> create or replace function func_calc_hours (date_one date, date_two date) return number as
+  2  
+  3  begin
+  4  
+  5  return (date_two - date_one) * 24;
+  6  
+  7  end;
+  8  /
+
+Function created.
+
+SQL> 
+SQL> create or replace function func_set_rate (event_type varchar) return number as
+  2  v_var number;
+  3  
+  4  begin
+  5  
+  6  case event_type
+  7  	     when 'Childrens Party' then v_var := 335;
+  8  	 when 'Wedding' then v_var := 300;
+  9  	     when 'Concert' then v_var := 10000;
+ 10  	     else v_var := 100;
+ 11  end case;
+ 12  
+ 13  return v_var;
+ 14  end;
+ 15  /
+
+Function created.
+
+SQL> 
+SQL> create or replace function func_calc_total (rate number, hours number, perday date) return number as
+  2  var varchar(10) := to_char(perday, 'day');
+  3  var_fee number;
+  4  begin
+  5  case var
+  6  	     when 'MONDAY' then var_fee := 100 + (rate * hours);
+  7  	 when 'FRIDAY' then var_fee := 100 + (rate * hours);
+  8  	     else var_fee := rate * hours;
+  9  end case;
+ 10  
+ 11  return var_fee;
+ 12  end;
+ 13  /
+
+Function created.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> declare
+  2  
+  3  date_one		     ata_performance.start_time%type;
+  4  date_two		     ata_performance.stop_time%type;
+  5  per_date		     ata_performance.performance_date%type;
+  6  this_type		     varchar2(20);
+  7  var_total		     number;
+  8  var_hours		     number;
+  9  var_rate		     number;
+ 10  
+ 11  
+ 12  
+ 13  begin
+ 14  SELECT start_time, stop_time, performance_date
+ 15  INTO date_one, date_two, per_date
+ 16  FROM ata_performance
+ 17  WHERE contract_number = 4;
+ 18  
+ 19  select event_type
+ 20  into this_type
+ 21  from ata_contract
+ 22  where contract_number = 4;
+ 23  
+ 24  var_hours := func_calc_hours(date_one, date_two);
+ 25  var_rate := func_set_rate(this_type);
+ 26  var_total := func_calc_total(var_rate, var_hours, per_date);
+ 27  
+ 28  DBMS_OUTPUT.PUT_LINE(var_total);
+ 29  
+ 30  
+ 31  end;
+ 32  /
+700                                                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> 
+SQL> spool off

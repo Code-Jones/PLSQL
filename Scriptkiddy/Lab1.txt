@@ -1,0 +1,111 @@
+SQL> 
+SQL> REM Lab 1
+SQL> 
+SQL> create Sequence seq_movie_id
+  2  	     start with 20
+  3  	     increment by 5;
+
+Sequence created.
+
+SQL> 
+SQL> select * from user_sequences
+  2  where sequence_name = 'SEQ_MOVIE_ID';
+
+SEQUENCE_NAME                   MIN_VALUE  MAX_VALUE INCREMENT_BY C O CACHE_SIZE LAST_NUMBER        
+------------------------------ ---------- ---------- ------------ - - ---------- -----------        
+SEQ_MOVIE_ID                            1 1.0000E+28            5 N N         20          20        
+
+SQL> 
+SQL> SELECT seq_movie_id.NEXTVAL as Sequence
+  2    FROM dual;
+
+  SEQUENCE                                                                                          
+----------                                                                                          
+        20                                                                                          
+
+SQL> 
+SQL> INSERT INTO mm_movie (movie_id, movie_title, movie_cat_id, movie_value, movie_qty)
+  2    VALUES (seq_movie_id.NEXTVAL, 'Question 5', '1', 10.00, 5);
+
+1 row created.
+
+SQL> 
+SQL> select * from mm_movie;
+
+  MOVIE_ID MOVIE_TITLE                              MOVIE_CAT_ID MOVIE_VALUE  MOVIE_QTY             
+---------- ---------------------------------------- ------------ ----------- ----------             
+         1 Alien                                               1          10          5             
+         2 Bladerunner                                         1           8          3             
+         3 Star Wars                                           1          15         11             
+         4 Texas Chainsaw Masacre                              2           7          2             
+         5 Jaws                                                2           7          1             
+         6 The good, the bad and the ugly                      3           7          2             
+         7 Silverado                                           3           7          1             
+         8 Duck Soup                                           4           5          1             
+         9 Planes, trains and automobiles                      4           5          3             
+        10 Waking Ned Devine                                   4          12          4             
+        11 Deep Blue Sea                                       5          14          3             
+        12 The Fifth Element                                   5          15          5             
+        25 Question 5                                          1          10          5             
+
+13 rows selected.
+
+SQL> 
+SQL> delete from mm_movie
+  2  where movie_id = 25;
+
+1 row deleted.
+
+SQL> 
+SQL> drop sequence seq_movie_id;
+
+Sequence dropped.
+
+SQL> 
+SQL> CREATE OR REPLACE VIEW vw_movie_rental AS
+  2  select  rental_id "Rental ID", movie_title "Movie Title", last "Last Name"
+  3  from    mm_movie mov    join mm_rental r on (mov.movie_id = r.movie_id)
+  4  						     join mm_member mem on (r.member_id = mem.member_id)
+  5  group by mov.movie_title, rental_id, last
+  6  order by rental_id;
+
+View created.
+
+SQL> 
+SQL> select * from vw_movie_rental;
+
+ Rental ID Movie Title                              Last Name                                       
+---------- ---------------------------------------- ------------                                    
+         1 Deep Blue Sea                            Tangier                                         
+         2 Duck Soup                                Tangier                                         
+         3 The good, the bad and the ugly           Maulder                                         
+         4 Star Wars                                Wild                                            
+         5 Jaws                                     Wild                                            
+         6 Deep Blue Sea                            Wild                                            
+         7 Waking Ned Devine                        Casteel                                         
+         8 Silverado                                Casteel                                         
+         9 Texas Chainsaw Masacre                   Maulder                                         
+        10 The Fifth Element                        Maulder                                         
+        11 Star Wars                                Maulder                                         
+        12 Texas Chainsaw Masacre                   Wild                                            
+
+12 rows selected.
+
+SQL> 
+SQL> drop view vw_movie_rental;
+
+View dropped.
+
+SQL> 
+SQL> create or replace synonym m_type
+  2  for cprg307a.mm_movie_type;
+
+Synonym created.
+
+SQL> 
+SQL> drop synonym m_type;
+
+Synonym dropped.
+
+SQL> 
+SQL> spool off;

@@ -1,0 +1,89 @@
+SQL> 
+SQL> REM Lab 3
+SQL> 
+SQL> select *
+  2  from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7772 client     clerk           7698 18-NOV-11       3825          0         10               
+      7839 KING       PRESIDENT            17-NOV-11       5000                    10               
+      7698 BLAKE      MANAGER         7839 01-MAY-11       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-11       2450                    10               
+      7566 JONES      MANAGER         7839 02-APR-11       2975                    20               
+      7902 FORD       ANALYST         7566 03-DEC-11       3000                    20               
+      7369 SMITH      CLERK           7902 17-DEC-10        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-11       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-11       1250        500         30               
+      7654 MARTIN     SALESMAN        7698 28-SEP-11       1250       1400         30               
+      7788 SCOTT      ANALYST         7566 09-DEC-12       3000                    20               
+      7844 TURNER     SALESMAN        7698 08-SEP-11       1500          0         30               
+      7876 ADAMS      CLERK           7788 12-JAN-13       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-11        950                    30               
+      7934 MILLER     CLERK           7782 23-JAN-12       1300                    10               
+      7777 Testone    clerk           7782 03-APR-11         99          0         10               
+
+16 rows selected.
+
+SQL> 
+SQL> declare
+  2  first_avg_salary	     Number(5);
+  3  last_avg_salary	     Number(5);
+  4  
+  5  begin
+  6  select avg(sal)
+  7  into first_avg_salary
+  8  from emp;
+  9  
+ 10  update emp
+ 11  set sal = (sal * 0.75)
+ 12  where sal > 5000;
+ 13  
+ 14  update emp
+ 15  set sal = (sal * 1.10)
+ 16  where sal < 100 and first_avg_salary >= (select avg(sal)
+ 17  										     from emp);
+ 18  
+ 19  
+ 20  
+ 21  select avg(sal)
+ 22  into last_avg_salary
+ 23  from emp;
+ 24  
+ 25  DBMS_OUTPUT.PUT_LINE('First Average Salary : ' || first_avg_salary);
+ 26  DBMS_OUTPUT.PUT_LINE('Last Average Salary : ' || last_avg_salary);
+ 27  
+ 28  end;
+ 29  /
+First Average Salary : 2059                                                                         
+Last Average Salary : 2059                                                                          
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> select *
+  2  from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7772 client     clerk           7698 18-NOV-11       3825          0         10               
+      7839 KING       PRESIDENT            17-NOV-11       5000                    10               
+      7698 BLAKE      MANAGER         7839 01-MAY-11       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-11       2450                    10               
+      7566 JONES      MANAGER         7839 02-APR-11       2975                    20               
+      7902 FORD       ANALYST         7566 03-DEC-11       3000                    20               
+      7369 SMITH      CLERK           7902 17-DEC-10        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-11       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-11       1250        500         30               
+      7654 MARTIN     SALESMAN        7698 28-SEP-11       1250       1400         30               
+      7788 SCOTT      ANALYST         7566 09-DEC-12       3000                    20               
+      7844 TURNER     SALESMAN        7698 08-SEP-11       1500          0         30               
+      7876 ADAMS      CLERK           7788 12-JAN-13       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-11        950                    30               
+      7934 MILLER     CLERK           7782 23-JAN-12       1300                    10               
+      7777 Testone    clerk           7782 03-APR-11         99          0         10               
+
+16 rows selected.
+
+SQL> 
+SQL> spool off;

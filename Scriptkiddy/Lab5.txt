@@ -1,0 +1,123 @@
+SQL> 
+SQL> DECLARE
+  2  
+  3  -- Constant variables
+  4    k_reduction_percentage_pres CONSTANT    NUMBER := 0.25;
+  5    k_reduction_percentage_sal  CONSTANT    NUMBER := 0.50;
+  6    k_president_job		   CONSTANT    VARCHAR2(15) := 'PRESIDENT';
+  7    k_manager			       constant    varchar2(20) := 'MANAGER';
+  8    k_low_salary		   CONSTANT    NUMBER := 100;
+  9    k_low_sal_incr_percentage   CONSTANT    NUMBER := 0.10;
+ 10    k_commission_compare_perc       CONSTANT        NUMBER := 0.22;
+ 11    k_has_commission 		       CONSTANT        NUMBER := 0;
+ 12  
+ 13  -- Local variables
+ 14    v_president_salary		       NUMBER;
+ 15    v_reduced_salary_president	       NUMBER;
+ 16    v_reduced_salary_percent 			       NUMBER;
+ 17    v_average_salary 		       NUMBER;
+ 18    v_commission_salary				       NUMBER;
+ 19    v_increased_salary				       NUMBER;
+ 20    v_low_commission 					       NUMBER;
+ 21  
+ 22    v_salary 							       NUMBER;
+ 23    v_commission						       NUMBER;
+ 24  
+ 25    e_no_manager exception;
+ 26  
+ 27  -- Cursor definitions
+ 28  
+ 29    CURSOR c_emp IS
+ 30  	 SELECT *
+ 31  	   FROM emp
+ 32  	  WHERE NVL(job, 'None') <> k_president_job;
+ 33  
+ 34  cursor c_managers is
+ 35  select *
+ 36  from emp
+ 37  where job = k_manager;
+ 38  
+ 39  BEGIN
+ 40  
+ 41  -- Retrieve the President's salary
+ 42    SELECT sal
+ 43  	     INTO v_president_salary
+ 44  	 FROM emp
+ 45  	WHERE job = k_president_job;
+ 46  
+ 47  -- Retrieve the average salary of the entire company
+ 48    SELECT AVG(sal)
+ 49  	 INTO v_average_salary
+ 50  	 FROM emp;
+ 51  
+ 52    FOR r_emp IN c_emp LOOP
+ 53  
+ 54  	     begin
+ 55  	     for r_manager in c_managers loop
+ 56  		     if (r_emp.job = r_manager.job) then
+ 57  			     raise e_no_manager;
+ 58  		     end if;
+ 59  	     end loop;
+ 60  	     end;
+ 61  
+ 62  	 v_salary := r_emp.sal;
+ 63  
+ 64  	 IF (v_salary > v_president_salary) THEN
+ 65  
+ 66  	   v_reduced_salary_percent := v_salary * k_reduction_percentage_sal;
+ 67  	   v_reduced_salary_president := v_president_salary * (1 - k_reduction_percentage_pres);
+ 68  
+ 69  -- Which recalculated salary is less?
+ 70  	   IF (v_reduced_salary_percent < v_reduced_salary_president) THEN
+ 71  		 v_salary := v_reduced_salary_percent;
+ 72  	       ELSE
+ 73  		 v_salary := v_reduced_salary_president;
+ 74  	       END IF;
+ 75  	     END IF;
+ 76  
+ 77  -- Is the employee's salary less than $100?
+ 78  	     IF (v_salary < k_low_salary) THEN
+ 79  
+ 80  	       v_increased_salary := v_salary * (1 + k_low_sal_incr_percentage);
+ 81  	   IF (v_increased_salary < v_average_salary) THEN
+ 82  	     v_salary := v_increased_salary;
+ 83  	   END IF;
+ 84  	     END IF;
+ 85  
+ 86  	v_commission := r_emp.comm;
+ 87  
+ 88  -- Does this employee have a commission?
+ 89  	 IF (NVL(v_commission, k_has_commission) > k_has_commission) THEN
+ 90  	   v_commission_salary := v_salary * k_commission_compare_perc;
+ 91  
+ 92  -- Is employee's commission more than 22% of their salary?
+ 93  	   IF (r_emp.comm > v_commission_salary) THEN
+ 94  	     SELECT MIN(comm)
+ 95  	       INTO v_low_commission
+ 96  	       FROM emp
+ 97  	      WHERE deptno = r_emp.deptno
+ 98  		AND comm <> k_has_commission;
+ 99  	     v_commission := v_low_commission;
+100  	       END IF;
+101  	 END IF;
+102  
+103  -- Modify the recalculated salary and commission in the database
+104  	 UPDATE emp
+105  		SET sal = v_salary,
+106  		    comm = v_commission
+107  	      WHERE empno = r_emp.empno;
+108  
+109    END LOOP;
+110  
+111  exception
+112  when e_no_manager then
+113  dbms_output.put_line('This employee has no manager');
+114  
+115  END;
+116  /
+This employee has no manager                                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> spool off;

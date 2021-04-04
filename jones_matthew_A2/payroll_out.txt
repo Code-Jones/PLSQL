@@ -1,0 +1,84 @@
+515,30-SEP-10,Payroll processed,4045,D,10525
+517,11-DEC-20,Month End for Account Service Revenue,3058,D,0
+517,11-DEC-20,Month End for Account Service Revenue,5555,C,0
+519,11-DEC-20,Month End for Account Royalty Revenue,3073,D,0
+519,11-DEC-20,Month End for Account Royalty Revenue,5555,C,0
+521,11-DEC-20,Month End for Account Mortgage Expense,4006,C,0
+521,11-DEC-20,Month End for Account Mortgage Expense,5555,D,0
+523,11-DEC-20,Month End for Account Payroll Expense,4045,C,0
+523,11-DEC-20,Month End for Account Payroll Expense,5555,D,0
+443,30-SEP-10,Payroll processed,2050,C,5000
+443,30-SEP-10,Payroll processed,4045,D,5000
+445,30-SEP-10,Payroll processed,2050,C,400
+445,30-SEP-10,Payroll processed,4045,D,400
+447,30-SEP-10,Payroll processed,2050,C,3215
+447,30-SEP-10,Payroll processed,4045,D,3215
+449,30-SEP-10,Payroll processed,2050,C,2106
+449,30-SEP-10,Payroll processed,4045,D,2106
+451,30-SEP-10,Payroll processed,2050,C,5264
+451,30-SEP-10,Payroll processed,4045,D,5264
+453,30-SEP-10,Payroll processed,2050,C,21215
+453,30-SEP-10,Payroll processed,4045,D,21215
+455,30-SEP-10,Payroll processed,2050,C,5544
+455,30-SEP-10,Payroll processed,4045,D,5544
+457,30-SEP-10,Payroll processed,2050,C,2125
+457,30-SEP-10,Payroll processed,4045,D,2125
+459,30-SEP-10,Payroll processed,2050,C,212
+459,30-SEP-10,Payroll processed,4045,D,212
+461,30-SEP-10,Payroll processed,2050,C,6545
+461,30-SEP-10,Payroll processed,4045,D,6545
+463,30-SEP-10,Payroll processed,2050,C,8515
+463,30-SEP-10,Payroll processed,4045,D,8515
+465,30-SEP-10,Payroll processed,2050,C,6542
+465,30-SEP-10,Payroll processed,4045,D,6542
+467,30-SEP-10,Payroll processed,2050,C,4555
+467,30-SEP-10,Payroll processed,4045,D,4555
+469,30-SEP-10,Payroll processed,2050,C,2157
+469,30-SEP-10,Payroll processed,4045,D,2157
+471,30-SEP-10,Payroll processed,2050,C,2315
+471,30-SEP-10,Payroll processed,4045,D,2315
+473,30-SEP-10,Payroll processed,2050,C,545
+473,30-SEP-10,Payroll processed,4045,D,545
+475,30-SEP-10,Payroll processed,2050,C,3125
+475,30-SEP-10,Payroll processed,4045,D,3125
+477,30-SEP-10,Payroll processed,2050,C,485
+477,30-SEP-10,Payroll processed,4045,D,485
+479,30-SEP-10,Payroll processed,2050,C,6748
+479,30-SEP-10,Payroll processed,4045,D,6748
+481,30-SEP-10,Payroll processed,2050,C,2154
+481,30-SEP-10,Payroll processed,4045,D,2154
+483,30-SEP-10,Payroll processed,2050,C,5645
+483,30-SEP-10,Payroll processed,4045,D,5645
+485,30-SEP-10,Payroll processed,2050,C,2185
+485,30-SEP-10,Payroll processed,4045,D,2185
+487,30-SEP-10,Payroll processed,2050,C,6545
+487,30-SEP-10,Payroll processed,4045,D,6545
+489,30-SEP-10,Payroll processed,2050,C,3215
+489,30-SEP-10,Payroll processed,4045,D,3215
+491,30-SEP-10,Payroll processed,2050,C,5648
+491,30-SEP-10,Payroll processed,4045,D,5648
+493,30-SEP-10,Payroll processed,2050,C,3548
+493,30-SEP-10,Payroll processed,4045,D,3548
+495,30-SEP-10,Payroll processed,2050,C,2318
+495,30-SEP-10,Payroll processed,4045,D,2318
+497,30-SEP-10,Payroll processed,2050,C,6845
+497,30-SEP-10,Payroll processed,4045,D,6845
+499,30-SEP-10,Payroll processed,2050,C,8895
+499,30-SEP-10,Payroll processed,4045,D,8895
+501,30-SEP-10,Payroll processed,2050,C,6588
+501,30-SEP-10,Payroll processed,4045,D,6588
+525,11-DEC-20,Month End for Account Utilities Expense,4078,C,0
+525,11-DEC-20,Month End for Account Utilities Expense,5555,D,0
+503,30-SEP-10,Payroll processed,2050,C,6512
+503,30-SEP-10,Payroll processed,4045,D,6512
+505,30-SEP-10,Payroll processed,2050,C,3153
+505,30-SEP-10,Payroll processed,4045,D,3153
+507,30-SEP-10,Payroll processed,2050,C,5455
+507,30-SEP-10,Payroll processed,4045,D,5455
+509,30-SEP-10,Payroll processed,2050,C,251
+509,30-SEP-10,Payroll processed,4045,D,251
+511,30-SEP-10,Payroll processed,2050,C,2318
+511,30-SEP-10,Payroll processed,4045,D,2318
+513,30-SEP-10,Payroll processed,2050,C,7436
+513,30-SEP-10,Payroll processed,4045,D,7436
+515,30-SEP-10,Payroll processed,2050,C,10525

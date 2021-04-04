@@ -1,0 +1,41 @@
+SQL> 
+SQL> declare
+  2  
+  3  cursor c_sal is
+  4  select * from emp;
+  5  
+  6  avg_salary 		     Number(5);
+  7  president_salary	     Number(5);
+  8  min_comm			     Number(5);
+  9  
+ 10  begin
+ 11  
+ 12  for r_sal in c_sal loop
+ 13  
+ 14  	     select avg(sal)
+ 15  	     into avg_salary
+ 16  	     from emp;
+ 17  
+ 18  	     select min(comm)
+ 19  	     into min_comm
+ 20  	     from emp
+ 21  	     where deptno = r_sal.deptno;
+ 22  
+ 23  	     case
+ 24  		     when r_sal.sal > 5000 then r_sal.sal := r_sal.sal * 0.75;
+ 25  		     when r_sal.sal < 100 and (r_sal.sal * 1.10) < avg_salary then r_sal.sal := r_sal.sal * 1.10;
+ 26  		     when r_sal.comm != null and (r_sal.sal * 0.22) < r_sal.comm then r_sal.sal := min_comm;
+ 27  		     else r_sal.sal := r_sal.sal;
+ 28  	     end case;
+ 29  
+ 30  	     end loop;
+ 31  
+ 32  	     commit;
+ 33  
+ 34  end;
+ 35  /
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> spool off;

@@ -1,0 +1,151 @@
+SQL> 
+SQL> REM Prelab Lab 1
+SQL> 
+SQL> select * from mm_member;
+
+ MEMBER_ID LAST         FIRST    LICENSE_N LI CREDIT_CARD  S M                                      
+---------- ------------ -------- --------- -- ------------ - -                                      
+        10 Tangier      Tim      111111111 VA 123456789111 N                                        
+        11 Ruth         Babe     222222222 VA 222222222222 N Y                                      
+        12 Maulder      Fox      333333333 FL 333333333333 N Y                                      
+        13 Wild         Coyote   444444444 VA 444444444444 N                                        
+        14 Casteel      Joan     555555555 VA 555555555555 N Y                                      
+
+SQL> 
+SQL> INSERT INTO mm_member (member_id, last, first)
+  2  	VALUES (9, 'JJ', 'Matt');
+
+1 row created.
+
+SQL> 
+SQL> select * from mm_member;
+
+ MEMBER_ID LAST         FIRST    LICENSE_N LI CREDIT_CARD  S M                                      
+---------- ------------ -------- --------- -- ------------ - -                                      
+        10 Tangier      Tim      111111111 VA 123456789111 N                                        
+        11 Ruth         Babe     222222222 VA 222222222222 N Y                                      
+        12 Maulder      Fox      333333333 FL 333333333333 N Y                                      
+        13 Wild         Coyote   444444444 VA 444444444444 N                                        
+        14 Casteel      Joan     555555555 VA 555555555555 N Y                                      
+         9 JJ           Matt                               N                                        
+
+6 rows selected.
+
+SQL> 
+SQL> update mm_member set credit_card = 123456789012 where first = 'Matt';
+
+1 row updated.
+
+SQL> 
+SQL> select * from mm_member;
+
+ MEMBER_ID LAST         FIRST    LICENSE_N LI CREDIT_CARD  S M                                      
+---------- ------------ -------- --------- -- ------------ - -                                      
+        10 Tangier      Tim      111111111 VA 123456789111 N                                        
+        11 Ruth         Babe     222222222 VA 222222222222 N Y                                      
+        12 Maulder      Fox      333333333 FL 333333333333 N Y                                      
+        13 Wild         Coyote   444444444 VA 444444444444 N                                        
+        14 Casteel      Joan     555555555 VA 555555555555 N Y                                      
+         9 JJ           Matt                  123456789012 N                                        
+
+6 rows selected.
+
+SQL> 
+SQL> delete from mm_member where first = 'Matt';
+
+1 row deleted.
+
+SQL> 
+SQL> select * from mm_member;
+
+ MEMBER_ID LAST         FIRST    LICENSE_N LI CREDIT_CARD  S M                                      
+---------- ------------ -------- --------- -- ------------ - -                                      
+        10 Tangier      Tim      111111111 VA 123456789111 N                                        
+        11 Ruth         Babe     222222222 VA 222222222222 N Y                                      
+        12 Maulder      Fox      333333333 FL 333333333333 N Y                                      
+        13 Wild         Coyote   444444444 VA 444444444444 N                                        
+        14 Casteel      Joan     555555555 VA 555555555555 N Y                                      
+
+SQL> 
+SQL> commit;
+
+Commit complete.
+
+SQL> 
+SQL> select  rental_id "Rental ID", movie_title "Movie Title", last "Last Name"
+  2  from    mm_movie mov    join mm_rental r on (mov.movie_id = r.movie_id)
+  3  						     join mm_member mem on (r.member_id = mem.member_id)
+  4  group by mov.movie_title, rental_id, last
+  5  order by rental_id;
+
+ Rental ID Movie Title                              Last Name                                       
+---------- ---------------------------------------- ------------                                    
+         1 Deep Blue Sea                            Tangier                                         
+         2 Duck Soup                                Tangier                                         
+         3 The good, the bad and the ugly           Maulder                                         
+         4 Star Wars                                Wild                                            
+         5 Jaws                                     Wild                                            
+         6 Deep Blue Sea                            Wild                                            
+         7 Waking Ned Devine                        Casteel                                         
+         8 Silverado                                Casteel                                         
+         9 Texas Chainsaw Masacre                   Maulder                                         
+        10 The Fifth Element                        Maulder                                         
+        11 Star Wars                                Maulder                                         
+        12 Texas Chainsaw Masacre                   Wild                                            
+
+12 rows selected.
+
+SQL> 
+SQL> select  rental_id "Rental ID", movie_title "Movie Title", last "Last Name"
+  2  from    mm_rental r, mm_movie mov, mm_member mem
+  3  where   r.movie_id = mov.movie_id
+  4  and     r.member_id = mem.member_id
+  5  group by mov.movie_title, rental_id, last
+  6  order by rental_id;
+
+ Rental ID Movie Title                              Last Name                                       
+---------- ---------------------------------------- ------------                                    
+         1 Deep Blue Sea                            Tangier                                         
+         2 Duck Soup                                Tangier                                         
+         3 The good, the bad and the ugly           Maulder                                         
+         4 Star Wars                                Wild                                            
+         5 Jaws                                     Wild                                            
+         6 Deep Blue Sea                            Wild                                            
+         7 Waking Ned Devine                        Casteel                                         
+         8 Silverado                                Casteel                                         
+         9 Texas Chainsaw Masacre                   Maulder                                         
+        10 The Fifth Element                        Maulder                                         
+        11 Star Wars                                Maulder                                         
+        12 Texas Chainsaw Masacre                   Wild                                            
+
+12 rows selected.
+
+SQL> 
+SQL> CREATE TABLE My_Table (
+  2  	My_Number    NUMBER,
+  3  	My_Date 	     Date,
+  4  	My_String    VARCHAR(5)
+  5  	);
+
+Table created.
+
+SQL> 
+SQL> insert into My_Table (My_Number, My_Date, My_String)
+  2  values (1, sysdate, 'apple');
+
+1 row created.
+
+SQL> 
+SQL> select * from My_Table;
+
+ MY_NUMBER MY_DATE   MY_ST                                                                          
+---------- --------- -----                                                                          
+         1 09-SEP-20 apple                                                                          
+
+SQL> 
+SQL> drop table My_Table;
+
+Table dropped.
+
+SQL> 
+SQL> spool off;
